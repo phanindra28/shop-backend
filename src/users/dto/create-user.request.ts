@@ -9,6 +9,4 @@ export class CreateUserRequest {
 
   @IsString()
   name: string;
-
-  createdAt?: Date | string;
 }

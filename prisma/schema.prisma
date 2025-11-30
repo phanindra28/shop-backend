@@ -9,9 +9,18 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  uuid      String   @id @default(uuid())
+  userId    Int      @default(autoincrement())
   email     String   @unique
   name      String
   password  String
   createdAt DateTime @default(now())
+  role      Role     @default(USER)
+
+  @@unique([userId])
+}
+
+enum Role {
+  USER
+  ADMIN
 }
