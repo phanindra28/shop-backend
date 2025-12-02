@@ -6,6 +6,9 @@ import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { ProductModule } from './product/product.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -13,8 +16,14 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
     PrismaModule,
     UsersModule,
+    ProductModule,
+    InventoryModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService, UsersService],
